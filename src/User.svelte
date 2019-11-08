@@ -1,14 +1,13 @@
 <script>
-	export let username;
+  export let username;
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
+  h1 {
+    color: purple;
+  }
 </style>
 
 <h1>{username}</h1>
-
 
 <button>Login</button>

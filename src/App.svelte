@@ -10,13 +10,12 @@
 		{ id: '1', name: 'todo2', description: 'do this second', complete: false }
 	]
 
-
 	import { Auth } from './firebase';
 	import { Firestore } from './firebase';
 
 	let user;
 
-	onMount(async () =>  {
+	onMount(async () => {
 		user = await Auth.currentUser;
 
 		const ref = Firestore.collection('todos');
@@ -41,22 +40,13 @@
 	}
 
 
-	/// FIRESTORE
-
-
 	async function getTodos(userId) {
 		const user = Auth.currentUser;
-
-		
 	}
-
-	// complete
-
-	
 </script>
 
 <style>
-	main { 
+	main {
 		padding: 5%;
 		text-align: center;
 	}
@@ -87,7 +77,4 @@
 		Log in
 	</button>
 {/if}
-
-
 </main>
-

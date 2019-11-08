@@ -7,16 +7,14 @@
     import { Firestore } from './firebase';
 
     function handler() {
-        const ref = Firestore.doc(`todos/${id}`); 
+        const ref = Firestore.doc(`todos/${id}`);
         ref.update({ complete: !complete });
-    } 
-    
+    }
 </script>
 
 <style>
     .complete { text-decoration: line-through; color: crimson; }
 </style>
-
 
 <h3 class:complete>{name}</h3>
 <p>{description}</p>
