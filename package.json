@@ -13,14 +13,15 @@
     "sirv-cli": "^0.4.0",
     "svelte": "^3.0.0"
   },
+  "dependencies": {
+    "firebase": "^6.0.4"
+  },
   "scripts": {
     "build": "rollup -c",
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public",
-    "start:dev": "sirv public --dev"
-  },
-  "dependencies": {
-    "firebase": "^6.0.4"
+    "start:dev": "firebase serve",
+    "deploy": "yarn run build  && firebase deploy"
   }
 }

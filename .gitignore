@@ -1,3 +1,5 @@
 /.gtm/
 node_modules
 public/bundle.*
+.firebase/
+.firebaserc

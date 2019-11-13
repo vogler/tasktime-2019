@@ -14,5 +14,14 @@ const config = {
 
 firebase.initializeApp(config);
 
+// config can be loaded from https://firebase.google.com/docs/hosting/reserved-urls
+// works for `firebase deploy` and `firebase serve`
+fetch('/__/firebase/init.json').then(async response => {
+  const config = await response.json();
+  console.log(config);
+  // firebase is accessed in App.svelte before the above promise resolves and fails with "No Firebase App '[DEFAULT]' has been created - call Firebase App.initializeApp()""
+  // firebase.initializeApp(config);
+});
+
 export const Auth = firebase.auth();
 export const Firestore = firebase.firestore();
