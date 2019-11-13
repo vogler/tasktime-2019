@@ -13,6 +13,11 @@
 </head>
 
 <body>
+  <script>
+    fetch('/__/firebase/init.json').then(async response => {
+      window.firebaseConfig = await response.json();
+    });
+  </script>
   <script src='bundle.js'></script>
 </body>
 
