@@ -3,17 +3,17 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const config = {
-    apiKey: "AIzaSyCNGXNpOeRLQcJnuSgUXLv8sWcPhvJfyVA",
-    authDomain: "fireship-lessons.firebaseapp.com",
-    databaseURL: "https://fireship-lessons.firebaseio.com",
-    projectId: "fireship-lessons",
-    storageBucket: "fireship-lessons.appspot.com",
-    messagingSenderId: "758773997881",
-    appId: "1:758773997881:web:8991643725992873"
+  apiKey: "AIzaSyBdTOOf6iSJJPaqEzE6I_10K61q_gSyqPE",
+  authDomain: "fire-abc6b.firebaseapp.com",
+  databaseURL: "https://fire-abc6b.firebaseio.com",
+  projectId: "fire-abc6b",
+  storageBucket: "fire-abc6b.appspot.com",
+  messagingSenderId: "501935911539",
+  appId: "1:501935911539:web:0d24755b3c4bba9c97b006",
+  measurementId: "G-SK9XPGTLY9"
 };
 
-console.log(window.firebaseConfig);
-firebase.initializeApp(window.firebaseConfig);
+firebase.initializeApp(config);
 
 // config can be loaded from https://firebase.google.com/docs/hosting/reserved-urls
 // works for `firebase deploy` and `firebase serve`
