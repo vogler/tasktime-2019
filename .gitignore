@@ -3,3 +3,4 @@ node_modules
 public/bundle.*
 .firebase/
 firebase-debug.log
+yarn-error.log

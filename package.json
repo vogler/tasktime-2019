@@ -19,9 +19,9 @@
   "scripts": {
     "build": "rollup -c",
     "autobuild": "rollup -c -w",
-    "dev": "run-p start:dev autobuild",
-    "start": "sirv public",
-    "start:dev": "firebase serve",
+    "serve": "firebase serve",
+    "sirv": "sirv public --dev",
+    "dev": "run-p autobuild sirv",
     "deploy": "yarn run build  && firebase deploy"
   }
 }
