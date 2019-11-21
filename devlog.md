@@ -37,6 +37,13 @@ Interesting Links:
 - https://github.com/sveltejs/svelte-virtual-list
 - https://github.com/sveltejs/svelte-scroller
 
+Cons:
+- wasn't able to setup Typescript (see below)
+- not even intellisense for imported .js in .svelte files worked :(
+- forced to use one file per component? less flexible than just functions.
+- javascript, html and css are separated; might have to jump around instead of having all as javascript and close together
+- yet another templating language (e.g. `{#each todos as todo}<Todo {...todo}/>{/each}`), instead of just javascript
+
 ## Typescript in Svelte
 [svelte-ts](https://github.com/avantci/svelte-ts) (from [issue](https://github.com/sveltejs/svelte/issues/3677)) currently needs Bazel.
 Examples using Typescript:
