@@ -10,29 +10,30 @@
 		{ id: '1', name: 'todo2', description: 'do this second', complete: false }
 	]
 
-	import { Auth } from './firebase';
-	import { Firestore } from './firebase';
+	import { fb, Auth, Firestore } from './firebase';
 
 	let user;
 
 	onMount(async () => {
-		user = await Auth.currentUser;
-
+    user = await Auth.currentUser;
+    console.log('onMount: currentUser:', user)
 		const ref = Firestore.collection('todos');
-
 		ref.onSnapshot(snapshot => {
-			console.log(snapshot)
+			console.log('snapshot:', snapshot)
 			todos = snapshot.docs.map(doc => {
 				return { ...doc.data(), id: doc.id }
 			})
-			console.log(todos)
+			console.log('todos:', todos)
 		});
 	});
 
-	async function login() {
-		const credential = await Auth.signInWithEmailAndPassword('bob@example.com', 'firebase23')
+	const login = (method) => async () => {
+    console.log('login with', method)
+    const credential = await (method == 'google' ?
+      Auth.signInWithPopup(new fb.auth.GoogleAuthProvider()) :
+      Auth.signInWithEmailAndPassword('bob@example.com', 'firebase23'))
 		user = credential.user;
-		console.log(user)
+		console.log('logged in as', user)
 	}
 
 	async function logout() {
@@ -73,8 +74,7 @@
 	{/each}
 
 {:else}
-	<button on:click={login} class="button is-success">
-		Log in
-	</button>
+	<button on:click={login('dummy')} class="button is-success">Log in (dummy E-Mail)</button>
+	<button on:click={login('google')} class="button is-success">Log in (Google) - why is this so slow?</button>
 {/if}
 </main>

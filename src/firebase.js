@@ -27,3 +27,12 @@ firebase.initializeApp(config);
 
 export const Auth = firebase.auth();
 export const Firestore = firebase.firestore();
+// need both auth() and auth exported: firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+// how to re-export firebase such that `import { firebase, Auth, Firestore }` works?
+// export firebase; // no
+// export const firebase = firebase; // Identifier 'firebase' has already been declared
+// export default firebase; // no
+// export * from firebase; // no
+// export {default as firebase} from 'firebase/app'; // no
+// ok, give in and export/import it with a different name:
+export const fb = firebase;

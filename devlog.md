@@ -39,7 +39,7 @@ Interesting Links:
 
 Cons:
 - wasn't able to setup Typescript (see below)
-- not even intellisense for imported .js in .svelte files worked :(
+- not even intellisense for imported .js in .svelte files worked (works for firebase.js imported in main.js, but not in script tag in App.svelte)
 - forced to use one file per component? less flexible than just functions.
 - javascript, html and css are separated; might have to jump around instead of having all as javascript and close together
 - yet another templating language (e.g. `{#each todos as todo}<Todo {...todo}/>{/each}`), instead of just javascript
