@@ -7,25 +7,30 @@
 	let user;
 
 	onMount(async () => {
-    user = await Auth.currentUser;
+    user = await Auth.currentUser; // this is always null at this point
     console.log('onMount: currentUser:', user)
 		const ref = Firestore.collection('todos');
 		ref.onSnapshot(snapshot => {
 			todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
 			console.log('snapshot:', snapshot, 'todos:', todos)
-		});
-	});
+    });
+  });
+
+  Auth.onAuthStateChanged((user_) => {
+    console.log('onAuthStateChanged:', user_, user_ ? 'logged in' : 'logged out')
+    user = user_;
+  });
 
 	const login = (method) => async () => {
     console.log('login with', method)
     const credential = await (method == 'google' ?
       Auth.signInWithPopup(new fb.auth.GoogleAuthProvider()) :
       Auth.signInWithEmailAndPassword('bob@example.com', 'firebase23'))
-		user = credential.user;
 		console.log('logged in as', user)
 	}
 
 	async function logout() {
+    console.log('logout')
 		Auth.signOut();
 	}
 
@@ -47,7 +52,7 @@
 
 <main class="content">
 {#if user}
-	<h2>Logged in as <span class="text-has-info">{user.email}</span></h2>
+	<h3>Logged in as <span class="text-has-info">{user.email}</span></h3>
 	<button on:click={logout} class="button">Log out</button>
 	<hr>
 	<h2>My Todos</h2>
