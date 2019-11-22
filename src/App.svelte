@@ -1,17 +1,9 @@
 <script>
-	import Info from './User.svelte';
-	import Todo from './Todo.svelte';
 	import { onMount } from 'svelte';
-
-	export let name;
-
-	let todos = [
-		{ id: '0', name: 'todo1', description: 'do this first', complete: false },
-		{ id: '1', name: 'todo2', description: 'do this second', complete: false }
-	]
-
+	import Todo from './Todo.svelte';
 	import { fb, Auth, Firestore } from './firebase';
 
+	let todos = []
 	let user;
 
 	onMount(async () => {
@@ -19,11 +11,8 @@
     console.log('onMount: currentUser:', user)
 		const ref = Firestore.collection('todos');
 		ref.onSnapshot(snapshot => {
-			console.log('snapshot:', snapshot)
-			todos = snapshot.docs.map(doc => {
-				return { ...doc.data(), id: doc.id }
-			})
-			console.log('todos:', todos)
+			todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
+			console.log('snapshot:', snapshot, 'todos:', todos)
 		});
 	});
 
@@ -39,7 +28,6 @@
 	async function logout() {
 		Auth.signOut();
 	}
-
 
 	async function getTodos(userId) {
 		const user = Auth.currentUser;
@@ -60,19 +48,13 @@
 <main class="content">
 {#if user}
 	<h2>Logged in as <span class="text-has-info">{user.email}</span></h2>
-	<button on:click={logout} class="button">
-		Log out
-	</button>
-
+	<button on:click={logout} class="button">Log out</button>
 	<hr>
-
 	<h2>My Todos</h2>
-
 	{#each todos as todo}
 		<Todo {...todo} />
 		<hr>
 	{/each}
-
 {:else}
 	<button on:click={login('dummy')} class="button is-success">Log in (dummy E-Mail)</button>
 	<button on:click={login('google')} class="button is-success">Log in (Google) - why is this so slow?</button>
