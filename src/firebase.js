@@ -35,4 +35,6 @@ export const Firestore = firebase.firestore();
 // export * from firebase; // no
 // export {default as firebase} from 'firebase/app'; // no
 // ok, give in and export/import it with a different name:
-export const fb = firebase;
+// export const fb = firebase;
+// good explanation: https://javascript.info/import-export
+export { firebase }

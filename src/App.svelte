@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Todo from './Todo.svelte';
-  import { fb, Auth, Firestore } from './firebase';
+  import { firebase, Auth, Firestore } from './firebase';
 
   let todos = []
   let user;
@@ -24,7 +24,7 @@
   const login = (method) => async () => {
     console.log('login with', method)
     const credential = await (method == 'google' ?
-      Auth.signInWithPopup(new fb.auth.GoogleAuthProvider()) :
+      Auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) :
       Auth.signInWithEmailAndPassword('bob@example.com', 'firebase23'))
     console.log('logged in as', user)
   }
