@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import Todo from './Todo.svelte';
   import { firebase, Auth, Firestore } from './firebase';
 
   let user
@@ -85,8 +86,9 @@
   </form>
   <hr>
   {#each todos as todo}
-    <b class:complete={todo.complete}>{todo.name}</b>
-    <button on:click={toggle(todo)} class="button">Mark { todo.complete ? 'Incomplete' : 'Complete' }</button>
+    <Todo {todo}/>
+    <!-- <b class:complete={todo.complete}>{todo.name}</b>
+    <button on:click={toggle(todo)} class="button">Mark { todo.complete ? 'Incomplete' : 'Complete' }</button> -->
     <hr>
   {/each}
   {remaining} remaining

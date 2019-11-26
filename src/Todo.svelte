@@ -7,6 +7,7 @@
         // const ref = Firestore.doc(`todos/${id}`);
         // ref.update({ complete: !complete });
         todo.complete = !todo.complete
+        todo = todo
     }
 </script>
 
