@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import Todo from './Todo.svelte';
   import { firebase, Auth, Firestore } from './firebase';
 
   let user
@@ -47,6 +46,14 @@
     newTodo = ''
   }
 
+  const toggle = (todo) => () => {
+    // const ref = Firestore.doc(`todos/${id}`);
+    // ref.update({ complete: !complete });
+    console.log('toggle', todo)
+    todo.complete = !todo.complete
+    todos = todos; // trigger update of todos
+  }
+
   function clear() {
     console.log('clear', todos)
     todos = todos.filter(t => !t.complete)
@@ -59,6 +66,7 @@
     padding: 5%;
     text-align: center;
   }
+  .complete { text-decoration: line-through; color: crimson; }
 </style>
 
 <svelte:head>
@@ -77,7 +85,8 @@
   </form>
   <hr>
   {#each todos as todo}
-    <Todo {todo}/>
+    <b class:complete={todo.complete}>{todo.name}</b>
+    <button on:click={toggle(todo)} class="button">Mark { todo.complete ? 'Incomplete' : 'Complete' }</button>
     <hr>
   {/each}
   {remaining} remaining
