@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import Todo from './Todo.svelte';
   import { firebase, Auth, Firestore } from './firebase';
 
   let user
@@ -15,7 +14,7 @@
     ref.onSnapshot(snapshot => {
       todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
       console.log('snapshot:', snapshot, 'todos:', todos)
-      todos = [{id: 1, name: 'foo', complete: false}, {id: 2, name: 'bar', complete: true}] // TODO remove after testing
+      todos = [{id: 1, text: 'foo', done: false}, {id: 2, text: 'bar', done: true}] // TODO remove after testing
     });
   });
 
@@ -43,22 +42,21 @@
 
   async function addTodo() {
     console.log('addTodo', newTodo)
-    todos = todos.concat({ id: 1, name: newTodo, complete: false })
+    todos = todos.concat({ id: 1, text: newTodo, done: false })
     newTodo = ''
   }
 
   const toggle = (todo) => () => {
     // const ref = Firestore.doc(`todos/${id}`);
-    // ref.update({ complete: !complete });
+    // ref.update({ done: !done });
     console.log('toggle', todo)
-    todo.complete = !todo.complete
+    todo.done = !todo.done
     todos = todos; // trigger update of todos
   }
 
   function clear() {
     console.log('clear', todos)
-    todos = todos.filter(t => !t.complete)
-    console.log('after clear', todos)
+    todos = todos.filter(t => !t.done)
   }
 </script>
 
@@ -67,7 +65,9 @@
     padding: 5%;
     text-align: center;
   }
-  .complete { text-decoration: line-through; color: crimson; }
+	.done {
+		opacity: 0.4;
+	}
 </style>
 
 <svelte:head>
@@ -86,10 +86,10 @@
   </form>
   <hr>
   {#each todos as todo}
-    <Todo {todo}/>
-    <!-- <b class:complete={todo.complete}>{todo.name}</b>
-    <button on:click={toggle(todo)} class="button">Mark { todo.complete ? 'Incomplete' : 'Complete' }</button> -->
-    <hr>
+    <div class:done={todo.done}>
+      <input type=checkbox bind:checked={todo.done}>
+      <input placeholder="What needs to be done?" bind:value={todo.text}>
+    </div>
   {/each}
   {remaining} remaining
   <br>todos: {JSON.stringify(todos)}<br>

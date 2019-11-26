@@ -46,7 +46,7 @@ Cons:
 - for todo example it's not easy to decompose and use a Todo component for each todo:
   - `<Todo {...todo}/>` (spread props): change in Todo doesn't change todos in App
   - `<Todo {todo}/>` (one prop, change its fields): change in Todo does change todos, but bindings don't update (new field values only show after todos is assigned in App (e.g. by addTodo))
-  - probably their idea is to use a store for update/subscribe, but then we'd have to iterate over the list of todos for every change...
+  - probably their idea is to use a store for update/subscribe, but then it's ugly and we'd have to iterate over the list of todos for every change...
   - alternatively give up component idea and put all in one file, as here: https://svelte.dev/examples#each-block-bindings
     - but even then if we want to use functions instead of just binds, we need to assign `todos = todos` to trigger an update
 
