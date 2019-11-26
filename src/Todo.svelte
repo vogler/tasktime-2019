@@ -1,14 +1,14 @@
 <script>
     export let id;
     export let name;
-    export let description;
     export let complete;
 
     import { Firestore } from './firebase';
 
-    function handler() {
-        const ref = Firestore.doc(`todos/${id}`);
-        ref.update({ complete: !complete });
+    function toggle() {
+        // const ref = Firestore.doc(`todos/${id}`);
+        // ref.update({ complete: !complete });
+        complete = !complete
     }
 </script>
 
@@ -16,7 +16,6 @@
     .complete { text-decoration: line-through; color: crimson; }
 </style>
 
-<h3 class:complete>{name}</h3>
-<p>{description}</p>
+<b class:complete>{name}</b>
 
-<button on:click={handler} class="button">Mark { complete ? 'Incomplete' : 'Complete' }</button>
+<button on:click={toggle} class="button">Mark { complete ? 'Incomplete' : 'Complete' }</button>

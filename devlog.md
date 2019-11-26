@@ -43,6 +43,11 @@ Cons:
 - forced to use one file per component? less flexible than just functions.
 - javascript, html and css are separated; might have to jump around instead of having all as javascript and close together
 - yet another templating language (e.g. `{#each todos as todo}<Todo {...todo}/>{/each}`), instead of just javascript
+- for todo example it's not easy to decompose and use a Todo component for each todo:
+  - `<Todo {...todo}/>` (spread props): change in Todo doesn't change todos in App
+  - `<Todo {todo}/>` (one prop, change its fields): change in Todo does change todos, but bindings don't update
+  - probably their idea is to use a store for update/subscribe, but then we'd have to iterate over the list of todos for every change...
+  - alternatively give up component idea and put all in one file, as here: https://svelte.dev/examples#each-block-bindings
 
 ## Typescript in Svelte
 [svelte-ts](https://github.com/avantci/svelte-ts) (from [issue](https://github.com/sveltejs/svelte/issues/3677)) currently needs Bazel.
