@@ -77,7 +77,7 @@
   </form>
   <hr>
   {#each todos as todo}
-    <Todo {...todo}/>
+    <Todo {todo}/>
     <hr>
   {/each}
   {remaining} remaining
