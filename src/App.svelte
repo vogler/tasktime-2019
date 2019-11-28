@@ -47,6 +47,11 @@
     newTodo = ''
   }
 
+	const delTodo = (todo) => () => {
+		console.log('delTodo', todo)
+		todos = todos.filter(t => t != todo)
+	}
+
   function clear() {
     console.log('clear', todos)
     todos = todos.filter(t => !t.done)
@@ -76,7 +81,7 @@
   </form>
   <hr>
   {#each todos as todo}
-    <Todo bind:todo/>
+    <Todo bind:todo {delTodo}/>
   {/each}
   {remaining} remaining
   <br>todos: {JSON.stringify(todos)}<br>

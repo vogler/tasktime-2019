@@ -1,5 +1,6 @@
 <script>
     export let todo;
+    export let delTodo;
 
     import { Firestore } from './firebase';
 
@@ -19,4 +20,5 @@
 <div class:done={todo.done}>
   <input type=checkbox bind:checked={todo.done}>
   <input placeholder="What needs to be done?" bind:value={todo.text}>
+  <button on:click={delTodo(todo)}>x</button>
 </div>
