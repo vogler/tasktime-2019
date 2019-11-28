@@ -49,6 +49,7 @@ Cons:
   - probably their idea is to use a store for update/subscribe, but then it's ugly and we'd have to iterate over the list of todos for every change...
   - alternatively give up component idea and put all in one file, as here: https://svelte.dev/examples#each-block-bindings
     - but even then if we want to use functions instead of just binds, we need to assign `todos = todos` to trigger an update
+  - Asked on Discord; answer is to use `<Todo bind:todo/>` instead of just `<Todo {todo}/>` (cf. https://svelte.dev/repl/351ea16845754ee28543ef14b38afcc7?version=3.15.0). This way change can be made in the Todo component and App will react to it.
 
 ## Typescript in Svelte
 [svelte-ts](https://github.com/avantci/svelte-ts) (from [issue](https://github.com/sveltejs/svelte/issues/3677)) currently needs Bazel.

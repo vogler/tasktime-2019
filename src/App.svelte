@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import Todo from './Todo.svelte';
   import { firebase, Auth, Firestore } from './firebase';
 
   let user
@@ -46,14 +47,6 @@
     newTodo = ''
   }
 
-  const toggle = (todo) => () => {
-    // const ref = Firestore.doc(`todos/${id}`);
-    // ref.update({ done: !done });
-    console.log('toggle', todo)
-    todo.done = !todo.done
-    todos = todos; // trigger update of todos
-  }
-
   function clear() {
     console.log('clear', todos)
     todos = todos.filter(t => !t.done)
@@ -65,9 +58,6 @@
     padding: 5%;
     text-align: center;
   }
-	.done {
-		opacity: 0.4;
-	}
 </style>
 
 <svelte:head>
@@ -86,10 +76,7 @@
   </form>
   <hr>
   {#each todos as todo}
-    <div class:done={todo.done}>
-      <input type=checkbox bind:checked={todo.done}>
-      <input placeholder="What needs to be done?" bind:value={todo.text}>
-    </div>
+    <Todo bind:todo/>
   {/each}
   {remaining} remaining
   <br>todos: {JSON.stringify(todos)}<br>
