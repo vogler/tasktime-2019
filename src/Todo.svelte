@@ -1,6 +1,8 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
     export let todo;
-    export let delTodo;
 
     import { Firestore } from './firebase';
 
@@ -8,6 +10,10 @@
         // const ref = Firestore.doc(`todos/${id}`);
         // ref.update({ complete: !complete });
         todo.done= !todo.done
+    }
+    const del = (todo) => () => {
+      console.log('Todo.del', todo)
+      dispatch('delete', { todo });
     }
 </script>
 
@@ -20,5 +26,5 @@
 <div class:done={todo.done}>
   <input type=checkbox bind:checked={todo.done}>
   <input placeholder="What needs to be done?" bind:value={todo.text}>
-  <button on:click={delTodo(todo)}>x</button>
+  <button on:click={del(todo)}>x</button>
 </div>
