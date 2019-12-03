@@ -11,9 +11,9 @@
   onMount(async () => {
     // user = await Auth.currentUser; // this is always null at this point
     const ref = Firestore.collection('todos')
-    ref.onSnapshot(snapshot => {
-      todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
-      console.log('onSnapshot:', snapshot, 'todos:', todos)
+    ref.onSnapshot({ includeMetadataChanges: true }, snapshot => {
+      todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id, source: doc.metadata.hasPendingWrites ? 'local' : 'server' })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
+      console.log('onSnapshot:', snapshot, 'todos:', todos, 'changes:', snapshot.docChanges())
       todos = [{id: 1, text: 'foo', done: false}, {id: 2, text: 'bar', done: true}] // TODO remove after testing
     });
   });
