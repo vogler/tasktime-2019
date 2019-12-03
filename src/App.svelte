@@ -67,12 +67,13 @@
 
 <main class="content">
 {#if user}
-  {#if user.photoURL}
-    <img alt={user.displayName} src={user.photoURL} width="32" style="border-radius: 50%"/>
-  {/if}
-  <span class="text-has-info">{user.email}</span>
-  <button on:click={logout}>Log out</button>
-  <hr>
+  <div class="box">
+    {#if user.photoURL}
+      <img alt={user.displayName} src={user.photoURL} width="32" style="border-radius: 50%"/>
+    {/if}
+    <span class="text-has-info">{user.email}</span>
+    <button on:click={logout}>Log out</button>
+  </div>
   <form on:submit|preventDefault={addTodo}>
     <!-- <input type="range" bind:value={newTodoPrio}/> {newTodoPrio} -->
     <input type="text" bind:value={newTodo} placeholder="new todo..."/>

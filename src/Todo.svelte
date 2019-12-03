@@ -20,5 +20,5 @@
 <div class:done={todo.done}>
   <input type=checkbox bind:checked={todo.done}>
   <input placeholder="What needs to be done?" bind:value={todo.text}>
-  <button on:click={delTodo(todo)}>x</button>
+  <button class="delete" on:click={delTodo(todo)}/>
 </div>
