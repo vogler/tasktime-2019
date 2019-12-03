@@ -47,7 +47,7 @@
     newTodo = ''
   }
 
-	const delTodo = ({ detail: { todo } }) => {
+	const delTodo = (todo) => () => {
 		console.log('delTodo', todo)
 		todos = todos.filter(t => t != todo)
 	}
@@ -80,8 +80,8 @@
     <input type="submit" value="add"/>
   </form>
   <hr>
-  {#each todos as todo (todo.id)}
-    <Todo bind:todo on:delete={delTodo}/>
+  {#each todos as todo}
+    <Todo bind:todo {delTodo}/>
   {/each}
   {remaining} remaining
   <br>todos: {JSON.stringify(todos)}<br>
