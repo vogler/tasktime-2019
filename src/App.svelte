@@ -6,15 +6,14 @@
   let user
   let newTodo
   let todos = []
-  $: remaining = todos.filter(t => !t.done).length;
+  $: remaining = todos.filter(t => !t.done).length
 
   onMount(async () => {
-    user = await Auth.currentUser; // this is always null at this point
-    console.log('onMount: currentUser:', user)
-    const ref = Firestore.collection('todos');
+    // user = await Auth.currentUser; // this is always null at this point
+    const ref = Firestore.collection('todos')
     ref.onSnapshot(snapshot => {
       todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
-      console.log('snapshot:', snapshot, 'todos:', todos)
+      console.log('onSnapshot:', snapshot, 'todos:', todos)
       todos = [{id: 1, text: 'foo', done: false}, {id: 2, text: 'bar', done: true}] // TODO remove after testing
     });
   });
@@ -32,30 +31,27 @@
     console.log('logged in as', user)
   }
 
-  async function logout() {
+  const logout = () => {
     console.log('logout')
     Auth.signOut();
   }
 
-  async function getTodos(userId) {
-    const user = Auth.currentUser;
+  const clear = () => {
+    console.log('clear', todos)
+    todos = todos.filter(t => !t.done)
   }
 
-  async function addTodo() {
+  const addTodo = () => {
     console.log('addTodo', newTodo)
     todos = todos.concat({ id: Math.floor(Math.random()*1000), text: newTodo, done: false })
     newTodo = ''
   }
 
+  // functions passed to Todo component such that it can manipulate the list of todos:
 	const delTodo = (todo) => () => {
 		console.log('delTodo', todo)
-		todos = todos.filter(t => t != todo)
+		todos = todos.filter(t => t != todo) // remove todo
 	}
-
-  function clear() {
-    console.log('clear', todos)
-    todos = todos.filter(t => !t.done)
-  }
 </script>
 
 <style>

@@ -1,14 +1,14 @@
 <script>
-    export let todo;
-    export let delTodo;
+  export let todo;
+  export let delTodo;
 
-    import { Firestore } from './firebase';
+  import { Firestore } from './firebase';
 
-    function toggle() {
-        // const ref = Firestore.doc(`todos/${id}`);
-        // ref.update({ complete: !complete });
-        todo.done= !todo.done
-    }
+  function toggle() {
+      // const ref = Firestore.doc(`todos/${id}`)
+      // ref.update({ complete: !complete })
+      todo.done= !todo.done
+  }
 </script>
 
 <style>
