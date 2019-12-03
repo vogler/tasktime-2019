@@ -80,7 +80,8 @@
     <input type="submit" value="add"/>
   </form>
   <hr>
-  {#each todos as todo}
+  <!-- need https://svelte.dev/examples#keyed-each-blocks (todo.id) for delTodo -->
+  {#each todos as todo (todo.id)}
     <Todo bind:todo {delTodo}/>
   {/each}
   {remaining} remaining
