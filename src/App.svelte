@@ -68,7 +68,7 @@
 <main class="content">
 {#if user}
   {#if user.photoURL}
-    <img alt={user.displayName} src={user.photoURL} width="32"/>
+    <img alt={user.displayName} src={user.photoURL} width="32" style="border-radius: 50%"/>
   {/if}
   <span class="text-has-info">{user.email}</span>
   <button on:click={logout}>Log out</button>
