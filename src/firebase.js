@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+// submodules initialized via side-effects:
 import 'firebase/auth';
 import 'firebase/firestore';
 
