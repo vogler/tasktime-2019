@@ -43,7 +43,7 @@
 
   async function addTodo() {
     console.log('addTodo', newTodo)
-    todos = todos.concat({ id: 1, text: newTodo, done: false })
+    todos = todos.concat({ id: Math.floor(Math.random()*1000), text: newTodo, done: false })
     newTodo = ''
   }
 
