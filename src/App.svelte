@@ -2,19 +2,18 @@
   import { onMount } from 'svelte';
   import Todo from './Todo.svelte';
   import { firebase, Auth, Firestore } from './firebase';
+  const db = Firestore.collection('todos')
 
   let user
-  let newTodo
+  let newTodoText
   let todos = []
   $: remaining = todos.filter(t => !t.done).length
 
   onMount(async () => {
     // user = await Auth.currentUser; // this is always null at this point
-    const ref = Firestore.collection('todos')
-    ref.onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    db.onSnapshot({ includeMetadataChanges: true }, snapshot => {
       todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id, source: doc.metadata.hasPendingWrites ? 'local' : 'server' })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
       console.log('onSnapshot:', snapshot, 'todos:', todos, 'changes:', snapshot.docChanges())
-      todos = [{id: 1, text: 'foo', done: false}, {id: 2, text: 'bar', done: true}] // TODO remove after testing
     });
   });
 
@@ -41,10 +40,12 @@
     todos = todos.filter(t => !t.done)
   }
 
-  const addTodo = () => {
-    console.log('addTodo', newTodo)
-    todos = todos.concat({ id: Math.floor(Math.random()*1000), text: newTodo, done: false })
-    newTodo = ''
+  const addTodo = async () => {
+    const todo = { text: newTodoText, done: false, user: user.email }
+    console.log('addTodo', todo)
+    newTodoText = ''
+    const ref = await db.add(todo) // this blocks if offline, but onSnapshot will fire with hasPendingWrites: true for the added document (will be merged once online again)
+    console.log('addTodo', todo, 'was saved at', ref.path)
   }
 
   // functions passed to Todo component such that it can manipulate the list of todos:
@@ -76,7 +77,7 @@
   </div>
   <form on:submit|preventDefault={addTodo}>
     <!-- <input type="range" bind:value={newTodoPrio}/> {newTodoPrio} -->
-    <input type="text" bind:value={newTodo} placeholder="new todo..."/>
+    <input type="text" bind:value={newTodoText} placeholder="new todo..."/>
     <input type="submit" value="add"/>
   </form>
   <hr>
