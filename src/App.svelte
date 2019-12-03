@@ -67,7 +67,10 @@
 
 <main class="content">
 {#if user}
-  Logged in as <span class="text-has-info">{user.email}</span> <br>
+  {#if user.photoURL}
+    <img alt={user.displayName} src={user.photoURL} width="32"/>
+  {/if}
+  <span class="text-has-info">{user.email}</span>
   <button on:click={logout}>Log out</button>
   <hr>
   <form on:submit|preventDefault={addTodo}>
