@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Todo from './Todo.svelte';
-  import { firebase, Auth, db } from './firebase';
+  import { firebase, Auth, db, timestamp } from './firebase';
 
   let user
   let newTodoText
@@ -10,7 +10,7 @@
 
   onMount(async () => {
     // user = await Auth.currentUser; // this is always null at this point
-    db.onSnapshot({ includeMetadataChanges: false }, snapshot => {
+    db.orderBy('created').onSnapshot({ includeMetadataChanges: false }, snapshot => {
       todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id, source: doc.metadata.hasPendingWrites ? 'local' : 'server' })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
       console.log('onSnapshot:', snapshot, 'todos:', todos, 'changes:', snapshot.docChanges())
     });
@@ -40,7 +40,7 @@
   }
 
   const addTodo = async () => {
-    const todo = { text: newTodoText, done: false, user: user.email }
+    const todo = { text: newTodoText, done: false, created: timestamp, user: user.email }
     console.log('addTodo', todo)
     newTodoText = ''
     const ref = await db.add(todo) // this blocks if offline, but onSnapshot will fire with hasPendingWrites: true for the added document (will be merged once online again)

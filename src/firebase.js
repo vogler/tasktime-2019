@@ -40,3 +40,4 @@ export const Firestore = firebase.firestore();
 // good explanation: https://javascript.info/import-export
 export { firebase }
 export const db = Firestore.collection('todos')
+export const timestamp = firebase.firestore.FieldValue.serverTimestamp()
