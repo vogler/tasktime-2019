@@ -47,12 +47,11 @@
     console.log('addTodo', todo, 'was saved at', ref.path)
   }
 
-  // functions passed to Todo component such that it can manipulate the list of todos:
-	const delTodo = (todo) => async () => {
-    console.log('delTodo', todo)
-    // todos = todos.filter(t => t != todo) // remove todo
-    await db.doc(todo.id).delete()
-	}
+  // functions passed to Todo component such that it can manipulate the list of todos: -- this is no longer needed since we can delete in db directly and the list of todos will update via onSnapshot (check commit 'move delTodo into Todo.del (outer todos is updated via db)')
+	// const delTodo = (todo) => async () => {
+  //   console.log('delTodo', todo)
+  //   todos = todos.filter(t => t != todo) // remove todo
+	// }
 </script>
 
 <style>
@@ -83,7 +82,7 @@
   <hr>
   <!-- need https://svelte.dev/examples#keyed-each-blocks (todo.id) for delTodo -->
   {#each todos as todo (todo.id)}
-    <Todo bind:todo {delTodo}/>
+    <Todo bind:todo/>
   {/each}
   {remaining} remaining
   <button on:click={clear}>Clear completed</button>

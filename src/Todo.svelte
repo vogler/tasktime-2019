@@ -3,7 +3,11 @@
   import { debounce } from './util'
 
   export let todo;
-  export let delTodo;
+
+	const del = async () => {
+    console.log('del', todo)
+    await db.doc(todo.id).delete()
+	}
 
   const save = (prop) => async () => {
     console.log('save', prop, 'of', todo)
@@ -25,5 +29,5 @@
 <div class:done={todo.done}>
   <input type=checkbox bind:checked={todo.done} on:change={save('done')}>
   <input placeholder="What needs to be done?" bind:value={todo.text} on:input={debounce(save('text'), 500)}>
-  <button class="delete" on:click={delTodo(todo)}/>
+  <button class="delete" on:click={del}/>
 </div>
