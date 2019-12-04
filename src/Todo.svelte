@@ -1,5 +1,5 @@
 <script>
-  import { Firestore } from './firebase';
+  import { db } from './firebase';
   import { debounce } from './util'
 
   export let todo;
@@ -7,7 +7,7 @@
 
   const save = (prop) => async () => {
     console.log('save', prop, 'of', todo)
-    const ref = await Firestore.doc(`todos/${todo.id}`).update(todo)
+    await db.doc(todo.id).update(todo)
   }
 
   // Want to update in db whenever data changes, but found no way to just react to local change in one todo: https://svelte.dev/repl/0ebf9146c0e34aa3bb9f4ecfb783f405?version=3.15.0

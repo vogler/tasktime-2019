@@ -39,3 +39,4 @@ export const Firestore = firebase.firestore();
 // export const fb = firebase;
 // good explanation: https://javascript.info/import-export
 export { firebase }
+export const db = Firestore.collection('todos')

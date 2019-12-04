@@ -1,8 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Todo from './Todo.svelte';
-  import { firebase, Auth, Firestore } from './firebase';
-  const db = Firestore.collection('todos')
+  import { firebase, Auth, db } from './firebase';
 
   let user
   let newTodoText
