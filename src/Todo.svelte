@@ -1,5 +1,6 @@
 <script>
   import { Firestore } from './firebase';
+  import { debounce } from './util'
 
   export let todo;
   export let delTodo;
@@ -33,6 +34,6 @@
 
 <div class:done={todo.done}>
   <input type=checkbox bind:checked={todo.done} on:change={toggle}>
-  <input placeholder="What needs to be done?" bind:value={todo.text} on:input={textChange}>
+  <input placeholder="What needs to be done?" bind:value={todo.text} on:input={debounce(textChange, 500)}>
   <button class="delete" on:click={delTodo(todo)}/>
 </div>
