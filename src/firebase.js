@@ -15,6 +15,8 @@ const config = {
 };
 
 firebase.initializeApp(config);
+// https://firebase.google.com/docs/firestore/manage-data/enable-offline
+firebase.firestore().enablePersistence({ synchronizeTabs: true }) // default cache size is 40 MB
 
 // config can be loaded from https://firebase.google.com/docs/hosting/reserved-urls
 // works for `firebase deploy` and `firebase serve`
