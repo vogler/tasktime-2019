@@ -22,6 +22,7 @@
     "serve": "firebase serve",
     "sirv": "sirv public --dev",
     "dev": "run-p autobuild sirv",
-    "deploy": "yarn run build  && firebase deploy"
+    "deploy": "yarn run build  && firebase deploy",
+    "purge": "firebase firestore:delete -r /todos"
   }
 }
