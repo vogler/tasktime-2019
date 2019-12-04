@@ -11,7 +11,7 @@
 
   onMount(async () => {
     // user = await Auth.currentUser; // this is always null at this point
-    db.onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    db.onSnapshot({ includeMetadataChanges: false }, snapshot => {
       todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id, source: doc.metadata.hasPendingWrites ? 'local' : 'server' })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
       console.log('onSnapshot:', snapshot, 'todos:', todos, 'changes:', snapshot.docChanges())
     });
@@ -87,10 +87,10 @@
     <Todo bind:todo {delTodo}/>
   {/each}
   {remaining} remaining
-  <br>todos: {JSON.stringify(todos)}<br>
   <button on:click={clear}>Clear completed</button>
+  <br>todos: {JSON.stringify(todos)}
 {:else}
   <button on:click={login('dummy')} class="button is-success">Log in (dummy E-Mail)</button>
-  <button on:click={login('google')} class="button is-success">Log in (Google) - why is this so slow?</button>
+  <button on:click={login('google')} class="button is-success">Log in (Google)</button> <!-- why is this so slow? -->
 {/if}
 </main>

@@ -5,9 +5,8 @@
   export let delTodo;
 
   const save = async () => {
-    console.log('save', todo)
+    // console.log('save', todo)
     const ref = await Firestore.doc(`todos/${todo.id}`).update(todo)
-    console.log('updated', ref)
   }
 
   // Want to update in db whenever data changes, but found no way to just react to local change in one todo: https://svelte.dev/repl/0ebf9146c0e34aa3bb9f4ecfb783f405?version=3.15.0
