@@ -49,9 +49,10 @@
   }
 
   // functions passed to Todo component such that it can manipulate the list of todos:
-	const delTodo = (todo) => () => {
-		console.log('delTodo', todo)
-		todos = todos.filter(t => t != todo) // remove todo
+	const delTodo = (todo) => async () => {
+    console.log('delTodo', todo)
+    // todos = todos.filter(t => t != todo) // remove todo
+    await db.doc(todo.id).delete()
 	}
 </script>
 
