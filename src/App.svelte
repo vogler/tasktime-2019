@@ -10,15 +10,24 @@
 
   onMount(async () => {
     // user = await Auth.currentUser; // this is always null at this point
-    db.orderBy('created').onSnapshot({ includeMetadataChanges: false }, snapshot => {
-      todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id, source: doc.metadata.hasPendingWrites ? 'local' : 'server' })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
-      console.log('onSnapshot:', snapshot, 'todos:', todos, 'changes:', snapshot.docChanges())
-    });
   });
+
+  let dbListener // call to unsubscribe
+  const query = (user) => {
+    if (user) {
+      dbListener = db.where('user', '==', user.email).orderBy('created').onSnapshot({ includeMetadataChanges: false }, snapshot => {
+        todos = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id, source: doc.metadata.hasPendingWrites ? 'local' : 'server' })) // these are the todos for all users; should be disallowed via firestore rules, and only be loaded after login for current user
+        console.log('onSnapshot:', snapshot, 'todos:', todos, 'changes:', snapshot.docChanges())
+      });
+    } else {
+      dbListener()
+    }
+  }
 
   Auth.onAuthStateChanged((user_) => {
     console.log('onAuthStateChanged:', user_, user_ ? 'logged in' : 'logged out')
     user = user_;
+    query(user)
   });
 
   const login = (method) => async () => {
