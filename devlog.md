@@ -36,6 +36,7 @@ Interesting Links:
 - https://github.com/sveltejs/svelte-todomvc
 - https://github.com/sveltejs/svelte-virtual-list
 - https://github.com/sveltejs/svelte-scroller
+- https://github.com/elcobvg/svelte-bulma-components
 
 Cons:
 - wasn't able to setup Typescript (see below)

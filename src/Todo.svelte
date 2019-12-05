@@ -26,8 +26,10 @@
 	}
 </style>
 
-<div class:done={todo.done} class:local={todo.source == 'local'}>
-  {#if todo.source == 'local'}☁︎{/if}
+<div class:done={todo.done}>
+  {#if todo.source == 'local'}
+    <span class="icon"><i class="fas fa-cloud-upload-alt"/></span>
+  {/if}
   <!-- ⚠️ ⚠︎ 🕸 ⚡️ 🌎 🚦 🧭 ⏱ 🖥 🔌 📤 🌐 ❗️ 💬 ☁︎ ⇞ ⇧ ⌁ ⌛︎ ⌚︎ ⚡︎ -->
   <input type=checkbox bind:checked={todo.done} on:change={save('done')}>
   <input placeholder="What needs to be done?" bind:value={todo.text} on:input={debounce(save('text'), 500)}>
