@@ -26,7 +26,9 @@
 	}
 </style>
 
-<div class:done={todo.done}>
+<div class:done={todo.done} class:local={todo.source == 'local'}>
+  {#if todo.source == 'local'}☁︎{/if}
+  <!-- ⚠️ ⚠︎ 🕸 ⚡️ 🌎 🚦 🧭 ⏱ 🖥 🔌 📤 🌐 ❗️ 💬 ☁︎ ⇞ ⇧ ⌁ ⌛︎ ⌚︎ ⚡︎ -->
   <input type=checkbox bind:checked={todo.done} on:change={save('done')}>
   <input placeholder="What needs to be done?" bind:value={todo.text} on:input={debounce(save('text'), 500)}>
   <button class="delete" on:click={del}/>
