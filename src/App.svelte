@@ -65,8 +65,11 @@
 
 <style>
   main {
-    padding: 5%;
+    /* padding: 5%; */
     text-align: center;
+  }
+  #user-menu {
+    text-align: right;
   }
 </style>
 
@@ -75,11 +78,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
 </svelte:head>
 
-<main class="content">
+<main>
 {#if user}
-  <div class="box">
+  <div id="user-menu">
     {#if user.photoURL}
-      <img alt={user.displayName} src={user.photoURL} width="32" style="border-radius: 50%"/>
+      <img alt={user.displayName} src={user.photoURL} width="32" style="vertical-align: middle; border-radius: 50%"/>
     {/if}
     <span class="text-has-info">{user.email}</span>
     <button on:click={logout}>Log out</button>
@@ -98,7 +101,17 @@
   <button on:click={clear}>Clear completed</button>
   <br>todos: {JSON.stringify(todos)}
 {:else}
-  <button on:click={login('dummy')} class="button is-success">Log in (dummy E-Mail)</button>
-  <button on:click={login('google')} class="button is-success">Log in (Google)</button> <!-- why is this so slow? -->
+  <div class="box">
+    <h1 class="title">Login</h1>
+    <button on:click={login('dummy')} class="button is-medium">
+      <span class="icon"><i class="fas fa-at"></i></span>
+      <span>E-Mail (dummy)</span>
+    </button>
+    <!-- why is google login so slow? -->
+    <button on:click={login('google')} class="button is-medium">
+      <span class="icon"><i class="fab fa-google"></i></span>
+      <span>Google</span>
+    </button>
+  </div>
 {/if}
 </main>
