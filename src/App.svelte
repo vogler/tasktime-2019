@@ -70,6 +70,7 @@
   }
   #user-menu {
     text-align: right;
+    margin-bottom: 1em;
   }
 </style>
 
@@ -99,7 +100,7 @@
   {/each}
   {remaining} remaining
   <button on:click={clear}>Clear completed</button>
-  <br>todos: {JSON.stringify(todos)}
+  <hr>todos: {JSON.stringify(todos)}
 {:else}
   <div class="box">
     <h1 class="title">Login</h1>
