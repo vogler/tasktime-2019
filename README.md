@@ -23,6 +23,7 @@ Pro Firebase:
 - Firestore:
   - real-time (can subscribe to updates)
   - offline support (even sync between tabs)
+
 Cons Firebase:
 - vendor lock-in
 - can't test offline (`firebase serve` launches some server, but no local database)
