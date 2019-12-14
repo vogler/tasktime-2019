@@ -67,6 +67,7 @@
   <button class="button fas {todo.active ? 'fa-pause' : 'fa-play'}" on:click={toggle}/>
   {#if duration}
     <span class="timer">{Duration.str(duration)}</span>
-    <br>{todo.startTime.toDate()}
+    {#if saved(todo.startTime)}<br>Start: {todo.startTime.toDate().toLocaleString('de')}{/if}
+    {#if saved(todo.stopTime)}<br>Stop: {todo.stopTime.toDate().toLocaleString('de')}{/if}
   {/if}
 </div>
