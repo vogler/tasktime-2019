@@ -19,7 +19,7 @@ Cons Svelte:
   - mutable allows to move functions into element component but makes all elements react to change in any element
 
 Pro Firebase:
-- easy authentication
+- easy authentication (and restricted db access via `firestore.rules`)
 - Firestore:
   - real-time (can subscribe to updates)
   - offline support (even sync between tabs)
