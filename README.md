@@ -1,68 +1,38 @@
-*Psst — looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# track-time_svelte-firebase
 
----
+This is a test project building some todo/time-tracking app using:
+- [Svelte](https://svelte.dev) as compiler for reactive UI components
+- [Firebase](https://firebase.google.com/) for Auth and Firestore
 
-# svelte app
+Try it at https://fire-abc6b.web.app/
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+Conclusion: not too happy with Svelte, Firebase is ok.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+Cons Svelte:
+- no Typescript yet (or hard to setup)
+- editor support (no Intellisense for JS in .svelte files)
+- limited composability, file for every component
+- element list problem:
+  - immutable forces to handle all edits in list component instead of element component
+  - mutable allows to move functions into element component but makes all elements react to change in any element
+
+Pro Firebase:
+- easy authentication
+- Firestore:
+  - real-time (can subscribe to updates)
+  - offline support (even sync between tabs)
+Cons Firebase:
+- vendor lock-in
+- can't test offline (`firebase serve` launches some server, but no local database)
+- limits; what happens for >1 write/s, just queued/throttled?
+
+More notes in [devlog.md](./devlog.md).
+
+## develop
 
 ```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
 npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
 npm run dev
 ```
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-now
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public
-```
+Open in browser; has live-reload.
