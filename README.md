@@ -3,10 +3,12 @@
 This is a test project building some todo/time-tracking app using:
 - [Svelte](https://svelte.dev) as compiler for reactive UI components
 - [Firebase](https://firebase.google.com/) for Auth and Firestore
+- [Bulma](https://bulma.io/) for CSS
 
 Try it at https://fire-abc6b.web.app/
 
-Conclusion: not too happy with Svelte, Firebase is ok.
+Evaluation: not too happy with Svelte, Firebase is ok.
+Don't like Bulma since you have to add classes to everything and it has some strange defaults like making all headings `h1, h2...` look the same unless you add more redundant class names...
 
 Cons Svelte:
 - no Typescript yet (or hard to setup)
