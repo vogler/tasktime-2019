@@ -82,11 +82,8 @@
 <main>
 {#if user}
   <div id="user-menu">
-    {#if user.photoURL}
-      <img alt={user.displayName} src={user.photoURL} width="32" style="vertical-align: middle; border-radius: 50%"/>
-    {/if}
-    <span class="text-has-info">{user.email}</span>
-    <button on:click={logout}>Log out</button>
+    <img alt="user photo" title="{user.displayName} ({user.email})" src={user.photoURL ? user.photoURL : "https://eu.ui-avatars.com/api/?name="+user.displayName} width="32" style="vertical-align: middle; border-radius: 50%"/>
+    <button class="button fas fa-sign-out-alt" style="vertical-align: middle" title="sign out" on:click={logout}/>
   </div>
   <form on:submit|preventDefault={addTodo}>
     <!-- <input type="range" bind:value={newTodoPrio}/> {newTodoPrio} -->
