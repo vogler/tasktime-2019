@@ -49,7 +49,7 @@
   }
 
   const addTodo = async () => {
-    const todo = { text: newTodoText, done: false, created: timestamp, user: user.email }
+    const todo = { text: newTodoText, done: false, active: false, created: timestamp, user: user.email }
     console.log('addTodo', todo)
     newTodoText = ''
     const ref = await db.add(todo) // this blocks if offline, but onSnapshot will fire with hasPendingWrites: true for the added document (will be merged once online again)
