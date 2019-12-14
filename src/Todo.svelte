@@ -1,6 +1,6 @@
 <script>
   import { db, timestamp } from './firebase';
-  import { debounce } from './util'
+  import { debounce, Duration } from './util'
   import { onDestroy } from 'svelte';
 
   export let todo;
@@ -22,14 +22,14 @@
   const saved = (time) => time && time.constructor.name == 'Timestamp' // before save it's set to timestamp (FieldValue.serverTimestamp)
   let duration
   let timer
-  $: if (todo.active && saved(todo.startTime)) {
+  $: if (todo.active && saved(todo.startTime) && !timer) {
     console.log('startTime', todo.startTime);
     timer = setInterval(() => duration = Math.round(Date.now()/1000 - todo.startTime.seconds), 1000)
   }
   $: if (!todo.active && saved(todo.stopTime) && timer) {
-    console.log('stopTime', todo.stopTime);
+    console.log('stopTime', todo.stopTime, duration);
     clearTimeout(timer)
-    duration = 0
+    timer = null
   }
 
   const toggle = async () => {
@@ -51,6 +51,9 @@
 	.done {
 		opacity: 0.4;
 	}
+  .timer {
+    font-family: monospace
+  }
 </style>
 
 <div class:done={todo.done}>
@@ -61,6 +64,9 @@
   <input type=checkbox bind:checked={todo.done} on:change={save('done')}>
   <input placeholder="What needs to be done?" bind:value={todo.text} on:input={debounce(save('text'), 500)}>
   <button class="button fas fa-trash" on:click|once={del}/>
-  <button class="button fas {todo.active ? 'fa-pause' : 'fa-play'}" on:click={toggle}/><br>
-  {#if duration}{todo.startTime.toDate()} {duration}{/if}
+  <button class="button fas {todo.active ? 'fa-pause' : 'fa-play'}" on:click={toggle}/>
+  {#if duration}
+    <span class="timer">{Duration.str(duration)}</span>
+    <br>{todo.startTime.toDate()}
+  {/if}
 </div>
