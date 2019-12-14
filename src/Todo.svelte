@@ -64,9 +64,13 @@
   <input type=checkbox bind:checked={todo.done} on:change={save('done')}>
   <input placeholder="What needs to be done?" bind:value={todo.text} on:input={debounce(save('text'), 500)}>
   <button class="button fas fa-trash" on:click|once={del}/>
-  <button class="button fas {todo.active ? 'fa-pause' : 'fa-play'}" on:click={toggle}/>
+  <button class="button" on:click={toggle}>
+    <span class="icon"><i class="fas {todo.active ? 'fa-pause' : 'fa-play'}"/></span>
+    {#if duration}
+      <span class="timer">{Duration.str(duration)}</span>
+    {/if}
+  </button>
   {#if duration}
-    <span class="timer">{Duration.str(duration)}</span>
     {#if saved(todo.startTime)}<br>Start: {todo.startTime.toDate().toLocaleString('de')}{/if}
     {#if saved(todo.stopTime)}<br>Stop: {todo.stopTime.toDate().toLocaleString('de')}{/if}
   {/if}
