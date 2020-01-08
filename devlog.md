@@ -66,6 +66,8 @@ Examples using Typescript:
 - Components:
   - https://github.com/bcrumbs/reactackle
   - https://github.com/kiwicom/orbit-components
+- https://www.youtube.com/user/Firebase/videos search for react
+  - [React and Firebase realtime state](https://www.youtube.com/watch?v=p4XTMvagQ2Q)
 
 
 # CSS
