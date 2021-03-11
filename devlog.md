@@ -10,15 +10,15 @@ Cloned [Fireship's todo demo](https://github.com/fireship-io/188-firebase-vs-amp
 - auth with temporary user and late sign-up
 
 ## Firestore
-- [rtdb vs. firestore](https://firebase.google.com/docs/database/rtdb-vs-firestore
-): use firestore which is newer and also supports realtime/subscribing to data
+- [RTDB vs. Firestore](https://firebase.google.com/docs/database/rtdb-vs-firestore
+): use Firestore which is newer and also supports realtime/subscribing to data
   - can run query in the console and copy corresponding code for it
   - RxFire (RxJS) works with Svelte
 - Use `{ merge: true }` for a non-destructive Firestore set
-- `query.get()` (no updates), `query.onSnapshot(q => q.docChanges().map(change => change.type)` type can be 'added', 'modfified' or 'removed', also has oldIndex, newIndex
+- `query.get()` (no updates), `query.onSnapshot(q => q.docChanges().map(change => change.type)` type can be 'added', 'modified' or 'removed', also has oldIndex, newIndex
 - has offline support and even syncs between tabs with `db.enablePersistance({ synchronizeTabs: true })`
 - auto-index for compound queries (throws exception with link to create the needed index)
-- typed ORMs (https://github.com/typeorm/typeorm does not support firebase):
+- typed ORMs (https://github.com/typeorm/typeorm does not support Firebase):
   - https://github.com/1amageek/pring.ts (90 stars)
   - https://github.com/lmcq/firebase-firestorm (121 stars)
   - https://github.com/wovalle/fireorm (86 stars)

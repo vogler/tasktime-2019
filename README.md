@@ -28,6 +28,9 @@ Cons Firebase:
 - vendor lock-in
 - can't test offline (`firebase serve` launches some server, but no local database)
 - limits; what happens for >1 write/s, just queued/throttled?
+- https://firebase.google.com/docs/firestore/quotas
+  - per day: 1GiB, 50k read, 20k write -> 13.88 writes/min
+  - soft limit: >1 write/s: increased latency/conflicts
 
 More notes in [devlog.md](./devlog.md).
 
