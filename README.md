@@ -1,4 +1,4 @@
-# track-time_svelte-firebase
+# tasktime_svelte-firebase
 
 This is a test project building some todo/time-tracking app using:
 - [Svelte](https://svelte.dev) as compiler for reactive UI components
